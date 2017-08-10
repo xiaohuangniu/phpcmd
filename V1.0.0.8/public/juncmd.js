@@ -212,7 +212,7 @@ $('#cmd_whole').click(function(){
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>';
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ 9、文件检测与漏洞扫描指令：</div>';
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ 检测与修复BOM头 loo bom 是否自动修复[可选]</div>';
-    txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ 扫描文件代码是否存在安全隐藏 loo vif false或需要不被扫描的目录，用|符合隔开；当为false时禁用系统默认的绕过目录[可选]
+    txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ 扫描文件代码是否存在安全隐藏 loo vif false或需要不被扫描的目录，用|符合隔开；当为false时禁用系统默认的绕过目录[可选]';
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>';   
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ config.php配置文件的一些系统项说明：</div>';
     txt += '<div contenteditable="false"><span class="command-cmd">CMD：></span>&nbsp;+ 数据库类型 : DB_TYPE</div>';
