@@ -75,7 +75,7 @@ class loo implements CmdInterface{
 	public function vif(){
 		set_time_limit(0);
 		$this->data[] = "启动全站漏洞扫描模式...";
-		$this->data[] = "系统扫描将分为三大部分：1、SQL注入，2、系统代码注入，3、PHP函数攻击，4、非法变量提交";
+		$this->data[] = "系统扫描将分为四大部分：1、SQL注入，2、系统代码注入，3、PHP函数攻击，4、非法变量提交";
 		$this->data[] = "系统将扫描以下PHP关键词：";
 		
 		foreach ($this->vif as $v) {
