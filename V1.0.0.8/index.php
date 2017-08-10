@@ -54,6 +54,14 @@ $(document).keypress(function(e) {
             return false;
         }
 
+        var html = $('.cmd').html();
+        $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;系统请求中，请耐心等候...</div><div><span class="command-line" contenteditable="false">command line：></span>&nbsp;');
+        // 设置光标到末尾
+        var html = $('.cmd').html();
+        $('.cmd').html('');
+        $('.cmd').focus(); 
+        Focus(html);
+        $('.cmd').append('</div>');
 
         $.ajax( {    
             url:'cmd/cmd.class.php', // 路径相对于当前目录，而不是项目根目录

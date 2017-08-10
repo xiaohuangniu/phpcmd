@@ -5,7 +5,7 @@
  + Author       : 小黄牛(1731223728@qq.com) -- QQ群：368405253
  + Version      : V1.0.0.1
  + Initial-Time : 2017-8-8 11:04
- + Last-time    : 2017-8-10 09:36 + 小黄牛
+ + Last-time    : 2017-8-10 17:00 + 小黄牛
  + Desc         : 各种检测扫描的命令行
  +              : loo bom [随便输入即可]                         扫描bom头文件，第三个参数不为空时则自动清除BOM头
  +              : loo vif false或需要过滤的目录，用|符合隔开      扫描文件代码是否存在安全隐藏
@@ -73,6 +73,7 @@ class loo implements CmdInterface{
 	 * 扫描全站漏洞
 	 */
 	public function vif(){
+		set_time_limit(0);
 		$this->data[] = "启动全站漏洞扫描模式...";
 		$this->data[] = "系统扫描将分为三大部分：1、SQL注入，2、系统代码注入，3、PHP函数攻击，4、非法变量提交";
 		$this->data[] = "系统将扫描以下PHP关键词：";
@@ -169,7 +170,7 @@ class loo implements CmdInterface{
 
 		 if (!empty($res)) {
 			 $this->vif_num += 1; 
-			 $this->data[]  = $file . ' <font color="red">' .$res. '</font>';
+			 $this->data[]  = iconv('gb2312', 'utf-8', $file) . ' <font color="red">' .$res. '</font>';
 		 }
 		
 	 }
