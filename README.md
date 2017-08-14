@@ -5,7 +5,7 @@ PHPCMD 命令行插件
 
 ### 1731223728@qq.com 
 
-+ 当前最新版本 - V1.0.0.8
++ 当前最新版本 - V1.0.0.9
 
 + 作者 - 小黄牛
 
@@ -14,31 +14,27 @@ PHPCMD 命令行插件
 
 ## 本次改版重要说明
 
-+ 本次改版主要在loo 命令行分支中新增一条 vif 指令，用于日常扫描文件代码是否存在安全隐藏
++ 本次改版主要新增了一条cd命令行分支，用于代码文件编辑处理；同时还扩展了Esc的快捷功能，与新增了一个Ctrl快捷键
+
++ 本次改版用于编辑文件的插件选用为：codemirror.js，文件包大小约为400KB
+
++ 本次改版同时也将原来index.php文件，转换成了index.html静态文件
+
 
 ### 本次改版详细说明
 
-+ 1、新增：扫描文件代码是否存在安全隐藏
-
++ 1、新增：进入目录或打开文件，输入cd /直接进入配置CD_PATH的根目录
 
 ``` 
-loo vif false或需要不被扫描的目录，用|符合隔开；当为false时禁用系统默认的绕过目录[可选]
-
-系统默认不扫描目录有：cmd, thinkphp, ThinkPHP, yii, vendor
-
-系统只扫描以下类型的文件内容：.php, .html, .htm, .txt, .log, .json, .arr, .array, .con, .conf, .config
-
-系统只扫描以下PHP系统关键字：
-
-    1、可能会被直接SQL注入的原生变量
-		$_get, $_post, $_session, $_cookie 
-	
-    2、可能会被非法运行代码的系统方法
-		system, exec, passthru, shell_exec, popen, proc_open, pcntl_exec, 
-	
-    3、可能会被非法运行函数的系统方法
-		'create_function, call_user_func_array, call_user_func, assert, 
-	
-    4、可能会被非法覆盖变量提交的系统方法
-		'parse_str, mb_parse_str, import_request_variables
+cd 路径[必填]
 ```
+
++ 2、新增：查看cd命令当前所在的目录
+
+``` 
+cd -h
+```
+
++ 3、新增：编辑器状态下输入关键字之后按下Ctrl键，可以调起代码智能补齐提示
+
++ 4、修改：快捷键：ESC 清空当前界面，如果处于文件编辑器状态下，会退出编辑器
