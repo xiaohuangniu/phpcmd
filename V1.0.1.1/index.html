@@ -1,0 +1,181 @@
+<!------------------------------------------------------------------------
+ + Title        : PHP—CMD 命令行工具
+ + Author       : 小黄牛(1731223728@qq.com) -- QQ群：368405253
+ + Version      : V1.0.1.1
+ + Initial-Time : 2017-5-02 14:25
+ + Last-time    : 2017-8-13 22:17 + 小黄牛
+ + Desc         : CMD操作界面
+-+----------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>PHP - CMD 命令行工具</title>
+    </head>
+    <link rel="stylesheet" type="text/css" href="public/cmd.css">
+    <script type="text/javascript" src="public/jquery.min.js"></script>
+    
+    <!--编辑器基础样式-->
+    <link rel="stylesheet" href="public/codemirror/lib/codemirror.css">
+    <script src="public/codemirror/lib/codemirror.js"></script>
+
+    <!--引入css文件，用以支持主题-->
+    <link rel="stylesheet" href="public/codemirror/theme/seti.css">
+
+    <!--支持代码折叠-->
+    <link rel="stylesheet" href="public/codemirror/addon/fold/foldgutter.css"/>
+    <script src="public/codemirror/addon/fold/foldcode.js"></script>
+    <script src="public/codemirror/addon/fold/foldgutter.js"></script>
+    <script src="public/codemirror/addon/fold/brace-fold.js"></script>
+    <script src="public/codemirror/addon/fold/comment-fold.js"></script>
+
+    <!--全屏模式-->
+    <link rel="stylesheet" href="public/codemirror/addon/display/fullscreen.css">
+    <script src="public/codemirror/addon/display/fullscreen.js"></script>
+
+    <!--括号匹配-->
+    <script src="public/codemirror/addon/edit/matchbrackets.js"></script>
+
+    <!--高亮库-->
+    <script src="public/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="public/codemirror/mode/clike/clike.js"></script>
+
+    <script src="public/codemirror/mode/javascript/javascript.js"></script>
+
+    <script src="public/codemirror/mode/css/css.js"></script>
+    <script src="public/codemirror/mode/php/php.js"></script>
+    <script src="public/codemirror/mode/xml/xml.js"></script>
+    <script src="public/codemirror/mode/sql/sql.js"></script>
+    <script src="public/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <!--自动补全库-->
+    <link rel="stylesheet" href="public/codemirror/addon/hint/show-hint.css">
+
+    <script src="public/codemirror/addon/hint/show-hint.js"></script>
+    <script src="public/codemirror/addon/hint/javascript-hint.js"></script>
+    <script src="public/codemirror/addon/hint/html-hint.js"></script>
+    <script src="public/codemirror/addon/hint/xml-hint.js"></script>
+    <script src="public/codemirror/addon/hint/css-hint.js"></script>
+    <script src="public/codemirror/addon/hint/sql-hint.js"></script>
+    
+<body>
+    <!--打开使用手册-->
+    <div id="cmd_whole">查看命令行大全</div>
+
+    <!--命令行操作界面-->
+    <div class="cmd"  contenteditable="true" style="word-wrap:break-word;  word-break:break-all; ">
+        <div contenteditable="false">欢迎使用PHP-CMD 命令行工具，当前版本为：V1.0.1.1</div>
+        <div><span class="command-line" contenteditable="false">command line：></span>&nbsp;</div>
+    </div>
+    <!--代码编辑器操作页面-->
+    <div class="code-upd"><textarea id="code"></textarea>
+      <div class="code-bottom">
+        <div class="vif-left"><span id="code-vif"></span></div>
+        <button type="button" class="code-post">保存</button>
+        <button type="button" class="code-out">退出</button>
+      </div>
+
+
+    </div>
+
+</body>
+</html>
+<script type="text/javascript" src="public/juncmd.js"></script>
+<script type="text/javascript" src="public/juncmd_code.js"></script>
+<script type="text/javascript">
+
+// 监听回车事件
+$(document).keypress(function(e) {   
+    if(e.which == 13) {
+        var html = '<span class="command-line" contenteditable="false">command line：&gt;</span>&nbsp;';
+        var txt  = $('.cmd div:last').html().replace(html,'');
+
+        // 发现火狐浏览器的bug，先暂停火狐浏览器的使用
+        if (navigator.userAgent.indexOf("Firefox") > 0) {
+            var html = $('.cmd').html();
+            $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;已发现火狐浏览器BUG，暂不支持火狐浏览器使用！</div>');
+            // 设置光标到末尾
+            var html = $('.cmd').html();
+            $('.cmd').html('');
+            $('.cmd').focus(); 
+            Focus(html);
+            $('.cmd').append('</div>');
+            return false;
+        }
+
+        var html = $('.cmd').html();
+        $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;系统请求中，请耐心等候...</div>');
+        
+        $.ajax( {    
+            url:'cmd/cmd.class.php', // 路径相对于当前目录，而不是项目根目录
+            data:{    
+                'cmd':txt    
+            },    
+            type:'post',    
+            cache:false,      
+            success:function(data) {
+                // alert(data);
+                var obj  = eval('('+data+')');  
+                // 抛出异常
+                if(!obj.code){alert(data);}
+                // 未登录
+                if(obj.code == 02){
+                    var html = $('.cmd').html();
+                    $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;'+obj.data+'</div>');
+                    var html = $('.cmd').html();
+                    $('.cmd').html(html+'<div><span class="command-line" contenteditable="false">command line：></span>&nbsp;user login|name&nbsp;');
+
+                }else{ // 已登录
+                    if($.isArray(obj.data)){
+                        for(var i=0;i < obj.data.length;i++){
+                            var html = $('.cmd').html();
+                            $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;'+obj.data[i]+'</div>');
+                        }
+                    }else{
+                        var html = $('.cmd').html();
+						if(obj.code == 04){
+							$('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;已成功进入目录：'+obj.data+'</div>');
+						}else if(obj.code == 05){
+							$('#code').val(obj.data);
+							$(".code-upd").fadeIn(1000);  
+							cmd_code(obj.msg);
+                        }else if(obj.code == 06){
+                            $('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;当前存在目录：'+obj.data+'</div>');
+                        }else{
+							$('.cmd').html(html+'<div contenteditable="false"><span class="command-echo">command Eco：></span>&nbsp;'+obj.data+'</div>');
+						}
+                    }
+                
+                    $('.cmd').focus(); 
+                    var html = $('.cmd').html();
+                    if(obj.code == '01'){
+                        $('.cmd').html(html+'<div><span class="command-line" contenteditable="false">command line：></span>&nbsp;'+txt);
+                    }else{
+                        $('.cmd').html(html+'<div><span class="command-line" contenteditable="false">command line：></span>&nbsp;');
+                    }
+
+                }  
+
+                // 判断是否有下载输出
+                if(obj.dow){
+                    window.open(obj.dow);
+                }
+
+                // 设置光标到末尾
+                var html = $('.cmd').html();
+                $('.cmd').html('');
+                $('.cmd').focus(); 
+                Focus(html);
+                $('.cmd').append('</div>');
+
+                $('.cmd').scrollTop( $('.cmd')[0].scrollHeight );
+            }, error : function(){
+                alert("路径异常！");    
+            }    
+        }); 
+
+        return false;
+    } 
+}); 
+
+</script>
