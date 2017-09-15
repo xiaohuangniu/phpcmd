@@ -1,0 +1,38 @@
+@charset "UTF-8";
+html,body{margin: 0; padding: 0}
+.cmd{background: #000; color: #fff; padding: 10px; font-family: '微软雅黑'; font-size: 13px;overflow-x: hidden}
+.cmd div{cursor: pointer}
+.cmd div:hover{color: red}
+.command-line{color: #EFD100; width: 125px;    display: block;float: left;}
+.command-echo{color: #00C52B; width: 125px;    display: block;float: left;}
+.command-cmd{color: orangered; width: 125px;    display: block;float: left;}
+#cmd_whole {width: 110px; height: 30px; line-height: 30px; text-align: center; font-size: 13px; color: #fff; background: #555; position: fixed; top: 30px; right: 30px; cursor: pointer  }
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+::-webkit-scrollbar  
+{  
+    width: 16px;  
+    height: 16px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+::-webkit-scrollbar-track  
+{  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  
+    border-radius: 10px;  
+    background-color: #F5F5F5;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #555;  
+}  
+
+.code-upd{position: absolute;background: #fff;z-index: 999999;display: none;top: 0;}
+.code-bottom{width: 100%;height: 40px;line-height: 40px;position: absolute;bottom: 0;z-index: 10;}
+.code-bottom button{position: relative;padding: 0;width: 60px;line-height: 35px;height: 35px;text-align: center;border-radius: 3px;font-size: 14px;color: #fff;border-bottom: 0;background-color: #151718;font-family: '微软雅黑';cursor: pointer;overflow: hidden;border: 0;float: right;margin: 3px 5px 0px 0px;}
+.code-bottom .code-out{background: #009688;margin-right: 15px;}
+.vif-left{position: relative;float: left;width: 200px;height: 40px;line-height: 40px;margin-left: 15px;font-family: '微软雅黑';font-size: 13px}
